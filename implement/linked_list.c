@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +12,7 @@
 #define FALSE 0
 
 linked_list*
-creat_linked_list ()
+create_linked_list ()
 {
   linked_list * list = malloc (sizeof (linked_list));
   memset (list, 0, sizeof (linked_list));
@@ -22,46 +27,70 @@ add_on_head (linked_list *list)
     {
       list->head = n;
       list->tail = n;
+      list->size++;
       return list;
     }
   node * current = list->head;
   list->head = n;
   list->head->next = current;
   current->previous = list->head;
-  list->size = size_of_list (list);
+  list->size++;
   return list;
 
 }
 
+//linked_list*
+//input_data (linked_list * list, int position, int value)
+//{
+//  list->size = size_of_list (list);
+//  if (position > list->size || position < 1)
+//    {
+//      printf ("void input position\n");
+//      return list;
+//    }
+//  linked_list *temp = list;
+//  for (int i = 1; i < list->size; i++)
+//    {
+//      list->head = list->head->next;
+//    }
+//  list->head->data = value;
+//  return temp;
+//}
+
 linked_list*
 input_data (linked_list * list, int position, int value)
 {
-  list->size = size_of_list (list);
+
   if (position > list->size || position < 1)
     {
       printf ("void input position\n");
       return list;
     }
-  linked_list *temp=list ;
-  for (int i = 1; i < list->size; i++)
+  node *temp = list->head;
+  int counter = 1;
+  while (position > counter)
     {
-      list->head = list->head->next;
+      temp = temp->next;
+      counter++;
     }
-  list->head->data = value;
-  return temp;
+  temp->data = value;
+
+  return list;
 }
 
-int
-size_of_list (linked_list *list)
-{
-  int counter = 0;
-  while (FALSE == is_empty (list->head))
-    {
-      counter++;
-      list->head = list->head->next;
-    }
-  return counter;
-}
+//linked_list*
+//size_of_list (linked_list *list)
+//{
+//  linked_list *temp = list;
+//  int counter = 0;
+//  while (FALSE == is_empty (list->head))
+//    {
+//      counter++;
+//      list->head = list->head->next;
+//    }
+//  list->size = counter;
+//  return temp;
+//}
 
 linked_list*
 add_on_tail (linked_list *list)
@@ -71,36 +100,40 @@ add_on_tail (linked_list *list)
     {
       list->head = n;
       list->tail = n;
+      list->size++;
       return list;
     }
-  node * last = list->head;
+  node* temp = list->head;
+  node * last = temp;
   while (1)
     {
 
-      while (TRUE == is_empty (list->head))
+      while (TRUE == is_empty (temp))
         {
           last->next = n;
           list->tail = n;
+          list->size++;
           return list;
         }
-      last = list->head;
-      list-> head = list->head->next;
+      last = temp;
+      temp = temp->next;
     }
   //  node*current = list->tail;
   //  list->tail = n;
   //  list->tail->previous = current;
   //  current->next = list->tail;
-  list->size = size_of_list (list);
+
   return list;
 }
 
-linked_list*
+void
 delete_list (linked_list *list)
 {
   if (TRUE == is_empty (list->head))
     {
       free (list);
-      return list;
+      list->size--;
+
     }
   while (FALSE == is_empty (list->head))
     {
@@ -109,55 +142,76 @@ delete_list (linked_list *list)
       delete_node (temp);
     }
   free (list);
-  list->size = size_of_list (list);
-  return list;
+  list->size--;
+
 }
 
-linked_list*
-updata (linked_list *list, int position, int value)
-{
-  if (list->size < position || position < 1)
-    return list;
-  node*current = list->head;
-  for (int i = 1; i <= position; i++)
-    current = current->next;
-  current->data = value;
-  return list;
-}
+//linked_list*
+//updata (linked_list *list, int position, int value)
+//{
+//  if (list->size < position || position < 1)
+//    return list;
+//  node*current = list->head;
+//  for (int i = 1; i <= position; i++)
+//    current = current->next;
+//  current->data = value;
+//  return list;
+//}
 
 linked_list*
 sort_list (linked_list *list)
 {
-  int size = size_of_list (list);
+
   node * value1 = list->head;
   node * value2 = list->head->next;
   while (NULL != value2)
     {
       if (value1->data > value2->data)
         {
-          node * temp;
-          temp = value2;
-          value2->previous = value1->previous;
-          value2->next = value1;
-          value1->next = temp->next;
+          //          node * temp_;
+          //          temp = value2;
+          //          value2->previous = value1->previous;
+          //          value2->next = value1;
+          //          value1->next = temp->next;
+          //          value1->previous = value2;
+          //          node * temp_previous = value2->previous;
+          //          node * temp_next = value2->next;
+          //          value2->next = value1->next;
+          //          value2->previous = value1->previous;
+          //          value1->next = temp_next;
+          //          value2->previous = temp_previous;
+          //          list->head = value2;
+          value2->previous->next = value2->next;//segemetation fault
           value1->previous = value2;
+          value2->next = value1;
+          list->head = value2;
+          value1 = list->head;
+          value2 = list->head->next;
+          display_list (list);
+          printf ("!!!!\n");
         }
       value2 = value2->next;
     }
-  list->head = value1;
   value2 = list->head->next;
-  for (int i = 1; i <= size - 1; i++)
+  //still not work
+  for (int i = 1; i <= list->size - 1; i++)
     {
-      for (int j = 1; j <= size - 1 - i; j++)
+      for (int j = 1; j <= list->size - 1 - i; j++)
         {
           if (value1->data > value2->data)
             {
-              node*temp;
-              temp = value2;
+              //              node*temp;
+              //              temp = value2;
+              //              value2->previous = value1->previous;
+              //              value2->next = value1;
+              //              value1->next = temp->next;
+              //              value1->previous = value2;
+              node *temp_previous = value2->previous;
+              node *temp_next = value2->next;
+              value2->next = value1->next;
               value2->previous = value1->previous;
-              value2->next = value1;
-              value1->next = temp->next;
-              value1->previous = value2;
+              value1->next = temp_next;
+              value2->previous = temp_previous;
             }
           value2 = value2->next;
         }
@@ -175,4 +229,45 @@ display_list (linked_list * list)
       display_node (temp);
       temp = temp->next;
     }
+}
+
+linked_list*
+delete_one_node (linked_list * list, int position)
+{
+  if (position > list->size)
+    {
+      printf ("void delete position\n");
+      return list;
+    }
+  node * temp = list->head;
+  node * last = temp;
+  if (1 == position)
+    {
+      list->head = temp->next;
+      free (temp);
+      list->head->previous = NULL;
+      list->size--;
+      return list;
+    }
+
+
+  while (NULL != temp)
+    {
+      for (int i = 1; i < position; i++)
+        {
+          last = temp;
+          temp = temp->next;
+        }
+      last->next = temp->next;
+      free (temp);
+      list->size--;
+      return list;
+    }
+  temp = list->tail;
+  list->tail = temp->previous;
+  list->tail->next = NULL;
+  free (temp);
+  list->size--;
+  return list;
+
 }
