@@ -5,9 +5,11 @@
 extern "C" {
 #endif
 
-  //define your structure here
   typedef struct dynamic_array
   {
+    //
+    //define your structure here
+    //
   } dynamic_array;
     
   //constructor & destructor
@@ -15,7 +17,7 @@ extern "C" {
   void deleteArray(dynamic_array* array);
   //--------------------------------------------
   /*
-    Clean an array so it looks as if just created.
+    Clean an array so it looks as if just created
    */
   void cleanArray(dynamic_array* array);
   
@@ -28,18 +30,26 @@ extern "C" {
     Add a data at the end of array
    */
   void append(dynamic_array* array, int data);
+  
   /*
     Insert the data in specific index position
    */
   void insertAt(dynamic_array* array, int data, int index);
+  
   /*
     Delete the data in specific index position
    */
   void deleteAt(dynamic_array* array, int index);
+  
   /*
     Update the data in specific index position
    */
   void updateAt(dynamic_array* array, int data, int index);
+  
+  /*
+    See if this array is empty
+   */
+  void isEmpty(dynamic_array* array);
 #ifdef __cplusplus
 }
 #endif
