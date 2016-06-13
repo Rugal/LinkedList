@@ -67,8 +67,9 @@ insertAt (dynamic_array* array, int data, int index)
       printf ("%d!!!!!!\n", array->size_of_array);
       array->data = realloc (array->data, (array->size_of_array) * sizeof (int));
     }
+  //This is a big error
+  //You need to move the other elements
   array->data[index - 1] = data;
-
 }
 
 void
@@ -86,6 +87,7 @@ deleteAt (dynamic_array* array, int index)
       array->data[temp] = array->data[temp + 1];
       temp++;
     }
+  //Better not to shrink size
   array->data = realloc (array->data, (array->size_of_array - 1) * sizeof (int));
   array->size_of_array--;
   array->number_of_data--;
