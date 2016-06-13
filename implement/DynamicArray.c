@@ -19,15 +19,19 @@ createArray (int size)
 void
 cleanArray (dynamic_array* array)
 {
+  //Remember to check validity of array pointer
   memset (array->data, 0, (array->size_of_array * sizeof (int)));
-
 }
 
 int
 indexAt (dynamic_array* array, int index)
 {
+  //Remember to check validity of array pointer
+  //So your index starts from 1?
+  //Why not starts from 0 so that you just need to access data with data[index]
   if (index < 1 || index > array->size_of_array)
     {
+      //In this case you should exit
       printf ("It is not a correct position\n");
       //    exit (1);
       return false;
@@ -38,8 +42,12 @@ indexAt (dynamic_array* array, int index)
 void
 append (dynamic_array* array, int data)
 {
-  array->size_of_array++;
+  //Remember to check validity of array pointer
+  array->size_of_array++;//this means you will only extend array by 1 for each time
+  //Resize itself is a function that should be modularize, since it will be used repeatedly
   array->data = realloc (array->data, (array->size_of_array) * sizeof (int));
+  //Error, this will literally place the data at the end of array.
+  //But you need to place it right after the last element in array
   array->data[(array->size_of_array) - 1] = data;
   array->number_of_data++;
 }
