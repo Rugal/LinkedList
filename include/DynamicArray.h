@@ -5,12 +5,12 @@
 extern "C" {
 #endif
 
-  typedef struct dynamic_array
-  {
-    //
-    //define your structure here
-    //
-  } dynamic_array;
+ 
+    typedef struct dynamicarray {
+        int *data;
+        int number_of_data;
+        int size_of_array;
+    } dynamic_array;
     
   //constructor & destructor
   dynamic_array* createArray(int size);
