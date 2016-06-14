@@ -1,16 +1,45 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 #include <stdbool.h>
+#include <stdlib.h>
+bool
+recursive_binary_search (int *array, int max, int min, int value);
+void
+sort_array (int *array, int size);
 
 bool
-recursive (int* array, int size, int value)
+recursive_binary_search (int *array, int max, int min, int value) //O(1)?O(n)?
 {
+  while (max <= min)
+    return false;
+  int mid = (max + min) / 2;
+  if (value == array[mid])
+    return true;
+  if (value > array[mid])
+    recursive_binary_search (array, max, min + 1, value);
+  if (value < array[mid])
+    recursive_binary_search (array, max - 1, min, value);
+
+}
+
+bool
+recursive (int* array, int size, int value)//if not found,it always return 4. why? 
+{
+  if (NULL == array || size <= 0)
+    return false;
   int min = 0;
   int max = size - 1;
   return recursive_binary_search (array, max, min, value);
 }
 
 bool
-iterative (int* array, int size, int value)
+iterative (int* array, int size, int value)//O(n)
 {
+  if (NULL == array || size <= 0)
+    return false;
   sort_array (array, size);
   int mid = size / 2;
   int min = 0;
@@ -47,7 +76,7 @@ iterative (int* array, int size, int value)
 }
 
 void
-sort_array (int *array, int size)
+sort_array (int *array, int size)//O(n^2)?
 {
   for (int i = 0; i < size - 1; i++)
     {
@@ -63,14 +92,5 @@ sort_array (int *array, int size)
     }
 }
 
-bool
-recursive_binary_search (int *array, int max, int min, int value)
-{
-  while (max >= min)
-    return false;
-  int mid = (max + min) / 2;
-  if (value > array[mid])
-    recursive_binary_search (array, max, mid, value);
-  if (value > array[mid])
-    recursive_binary_search (array, mid, min, value);
-}
+
+
