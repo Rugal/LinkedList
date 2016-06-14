@@ -49,7 +49,7 @@ extern "C" {
   /*
     See if this array is empty
    */
-  void isEmpty(dynamic_array* array);
+  bool isEmpty(dynamic_array* array);
 #ifdef __cplusplus
 }
 #endif
