@@ -92,5 +92,22 @@ sort_array (int *array, int size)//O(n^2)?
     }
 }
 
+bool binarySearch(int *data, int size, int value)//Rugal
+{
+    assert(data!=NULL);
+    sort(data, size);
+    int min = 0, max = size-1;
+    while(min<=max)
+    {
+        int mid = (min+max)/2;
+        if(data[mid] == value)
+            return true;
+        if(data[mid]>value)//in left segment
+            max = mid-1;
+        else
+            min = mid+1;
+    }
+    return false;
+}
 
 
