@@ -19,9 +19,9 @@ recursive_binary_search (int *array, int max, int min, int value) //O(1)?O(n)?
   if (value == array[mid])
     return true;
   if (value > array[mid])
-    recursive_binary_search (array, max, mid+1, value);
+    return recursive_binary_search (array, max, mid+1, value);
   else
-    recursive_binary_search (array, mid-1, min, value);
+    return recursive_binary_search (array, mid-1, min, value);
 
 }
 
