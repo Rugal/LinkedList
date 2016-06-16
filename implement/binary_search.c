@@ -13,15 +13,15 @@ sort_array (int *array, int size);
 bool
 recursive_binary_search (int *array, int max, int min, int value) //O(1)?O(n)?
 {
-  while (max <= min)
+  if (max < min)
     return false;
   int mid = (max + min) / 2;
   if (value == array[mid])
     return true;
   if (value > array[mid])
-    recursive_binary_search (array, max, min + 1, value);
+    recursive_binary_search (array, max, mid+1, value);
   if (value < array[mid])
-    recursive_binary_search (array, max - 1, min, value);
+    recursive_binary_search (array, mid-1, min, value);
 
 }
 
