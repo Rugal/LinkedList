@@ -16,7 +16,7 @@ Hanoi (int plate, char a, char b, char c)
     }
   else
     {
-      Hanoi (plate - 1, a, b, c);
+      Hanoi (plate - 1, a, c, b);
       printf ("move plate %d from %c to %c\n", plate, a, c);
       Hanoi (plate - 1, b, a, c);
     }
