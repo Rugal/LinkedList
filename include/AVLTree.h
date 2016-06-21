@@ -5,7 +5,6 @@
 extern "C" {
 #endif
 
-  typedef struct Node Node;
   typedef struct AVLTree AVLTree;
   
   /*
