@@ -1,17 +1,29 @@
-#include "AVLTree.h"
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-typedef struct Node Node;
-struct Node
+#include <stdio.h>
+#include "AVLtree.h"
+
+#define MAX(A, B)    ( A > B ? A : B )
+
+typedef struct node node;
+
+struct node
 {
-  Node *left, *right;
+  node *left, *right;
   int data, height;
 };
 
-struct AVLTree AVLTree
+#define HEIGHT(NODE)    ( (NODE==NULL) ? 0 : (((node *)(NODE))->height) )
+
+typedef struct AVLtree
 {
-  Node *root;
+  node *root;
   int size;
-};
+} AVLtree;
 
 /*
     Turn the tree 
@@ -32,7 +44,17 @@ struct AVLTree AVLTree
       / \   / \
     T3  T4 T2  T1 
  */
-static Node* rightRotate(Node*);
+static node*
+rightRotate (node* unbalance_node)
+{
+  node * rnode;
+  rnode = unbalance_node->left;
+  unbalance_node->left = rnode->right;
+  rnode->right = unbalance_node;
+  unbalance_node->height = MAX (HEIGHT (unbalance_node->left), HEIGHT (unbalance_node->right)) + 1;
+  rnode->height = MAX (HEIGHT (rnode->left), HEIGHT (rnode->right)) + 1;
+}
+
 /*
     Turn the tree 
     
@@ -52,4 +74,13 @@ static Node* rightRotate(Node*);
      / \   / \
   T1  T2  T3  T4
  */
-static Node* leftRotate(Node*);
+static node*
+leftRotate (node* unbalance_node)
+{
+  node * lnode;
+  lnode = unbalance_node->left;
+  unbalance_node->right = lnode->left;
+  lnode->left = unbalance_node;
+  unbalance_node->height = MAX (HEIGHT (unbalance_node->left), HEIGHT (unbalance_node->right)) + 1;
+  lnode->height = MAX (HEIGHT (lnode->left), HEIGHT (lnode->right)) + 1;
+}
