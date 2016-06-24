@@ -25,7 +25,7 @@ extern "C" {
   /*
    * Delete a node from AVL tree if it exists.
    */
-  void remove(AVLTree*, int data);
+  void delete(AVLTree*, int data);
   
   
 #ifdef __cplusplus
