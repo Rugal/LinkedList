@@ -20,12 +20,12 @@ extern "C" {
   /*
    * Insert a data into AVL tree.
    */
-  void insert(AVLTree*, int data);
+  void put(AVLTree*, int data);
   
   /*
    * Delete a node from AVL tree if it exists.
    */
-  void delete(AVLTree*, int data);
+  void remove(AVLTree*, int data);
   
   
 #ifdef __cplusplus
