@@ -78,7 +78,7 @@ static node*
 leftRotate (node* unbalance_node)
 {
   node * lnode;
-  lnode = unbalance_node->left;
+  lnode = unbalance_node->right;
   unbalance_node->right = lnode->left;
   lnode->left = unbalance_node;
   unbalance_node->height = MAX (HEIGHT (unbalance_node->left), HEIGHT (unbalance_node->right)) + 1;
