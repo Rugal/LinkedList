@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-#include <stdio.h>
+#include <stdlib.h>
 #include "AVLtree.h"
 
 #define MAX(A, B)    ( A > B ? A : B )
