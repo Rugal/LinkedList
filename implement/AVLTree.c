@@ -1,8 +1,8 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- * 2016/06/25
  */
 
 #include <stdio.h>
@@ -37,12 +37,23 @@ right_left_rotate (node* unbalance_node);
 static node*
 create_node ();
 static node *
-insert_node (node* node, int data);
+insert_node (node* n, int data);
 static node*
-delete_node (node * node, int data);
+delete_node (node * n, int data);
 static node*
-find_max_data (node * node);
+find_max_data (node * n);
+static node*
+find_min_data (node * n);
 
+static node*
+find_min_data (node * n)
+{
+  if (NULL == node)
+    return NULL;
+  while (node->left)
+    node = node->left;
+  return node;
+}
 
 // exit (1) : unable to allocate space for this tree(node)
 // exit (2) : user add the same data
@@ -164,62 +175,26 @@ insert_node (node* root, int data)
     {
       root = create_node ();
       root->data = data;
+      return root;
     }
-  if (root->data > data)
+  if (data == root->data)
+    {
+      return root;
+    }
+  if (root->data < data)
     {
       root->right = insert_node (root->right, data);
       if (HEIGHT (root->left) - HEIGHT (root->right) < -1)
-        {
-          if (root->right->data < data)
-            root = left_rotate (root);
-            /*               O1
-             *                \
-             *                 O2
-             *                  \
-             *                   O3
-             * 
-             *         into
-             * 
-             *             O2
-             *            /  \
-             *           O1    O3
-             */
-          else
-            root = right_left_rotate (root);
-          /*                O1
-           *                 \
-           *                  O2
-           *                 /
-           *               O3
-           *              /
-           *             O4
-           * into
-           *                 O1
-           *                 \
-           *                  O3
-           *                 / \
-           *               O4   02
-           *             
-           * into            
-           *                O3
-           *                / \
-           *               01  02
-           *              /   
-           *             04             
-           */
-        }
-
-    }
-  else if (data == root->data)
-    {
-      printf ("ERROR: not allowed to add the same data\n");
-      exit (2);
+        if (root->right->data < data)
+          root = left_rotate (root);
+        else
+          root = right_left_rotate (root);
     }
   else
     {
       root->left = insert_node (root->left, data);
       if (HEIGHT (root->left) - HEIGHT (root->right) > 1)
-        if (root->right->data > data)
+        if (root->left->data > data)
           root = right_rotate (root);
         else
           root = left_right_rotate (root);
@@ -242,45 +217,45 @@ delete_node (node * root, int data)
 {
   if (NULL == root)
     {
-      printf ("ERROR:this data is not exist\n");
-      exit (3);
+      return root;
     }
-
-  if (root->data > data)
-    {
-      root->left = delete_node (root->left, data);
-
-    }
-  else if (root->data < data)
-    {
-      root->right = delete_node (root->right, data);
-    }
-  else
+  if (root->data == data)
     {
       if (NULL == root->left && NULL == root->right)
-        free (root);
-      else if (root->left != NULL && root->right != NULL)
+        {
+          free (root);
+          return NULL;
+        }
+      if (root->left != NULL && root->right != NULL)
         {
           if (HEIGHT (root->left) > HEIGHT (root->right))
             {
               node * max_data_of_left_subtree = find_max_data (root->left);
               root->data = max_data_of_left_subtree->data;
-              root->left = max_data_of_left_subtree->left;
-              free (max_data_of_left_subtree);
+              delete_node (max_data_of_left_subtree);
             }
           else
             {
-              node * max_data_of_right_subtree = find_max_data (root->right);
-              root->data = max_data_of_right_subtree->data;
-              free (max_data_of_right_subtree);
+              node * min_data_of_right_subtree = find_min_data (root->right);
+              root->data = min_data_of_right_subtree->data;
+              delete_node (min_data_of_right_subtree);
             }
         }
       else
         {
           node* temp = root->right ? root->right : root->left;
-          root->data = temp->data;
-          free (temp);
+          free (root);
+          root = temp;
         }
+    }
+  if (root->data > data)
+    {
+      root->left = delete_node (root->left, data);
+
+    }
+  else
+    {
+      root->right = delete_node (root->right, data);
     }
   root->height = MAX (HEIGHT (root->left), HEIGHT (root->right)) + 1;
   return root;
@@ -288,3 +263,10 @@ delete_node (node * root, int data)
 
 static node*
 find_max_data (node * node)
+{
+  if (NULL == node)
+    return NULL;
+  while (node->right)
+    node = node->right;
+  return node;
+}
