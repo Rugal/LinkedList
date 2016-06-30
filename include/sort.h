@@ -23,7 +23,7 @@ extern "C" {
   /*
     Sort the given array with Shell Sort algorithm.
    */
-  void shellSort(int data[], int size);
+  void heapSort(int data[], int size);
   
 #ifdef __cplusplus
 }
