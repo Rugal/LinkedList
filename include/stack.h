@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   stack.h
  * Author: HYH
@@ -20,10 +14,10 @@ extern "C" {
     typedef struct Stack stack;
 
     stack* create_stack(); // create a new stack and initialize this stack! WARNING:You crate a new demon. DEMON :Your soul will be tortured (ง •̀_•́)ง
-    bool is_empty(stack * s);
+    int is_empty(stack * s);
     void push(stack * s, int data); // add the new data on head of stack (DEMON subordinates 1)
     int pop(stack* s); //get the first data and delete it from stack(DEMON subordinates 2)
-    int peek (stack * s);//get the first data (DEMON subordinates 3)
+    int peek(stack * s); //get the first data (DEMON subordinates 3)
     void delete_stack(stack * s);
     /*  "You are making d!e!s!t!r!c!t!i!o!n"  punchline from "pony island" or just I create,but who cares? GOOD BYE STACK! <(￣︶￣)> 
      * DEMON: what about me?
@@ -36,4 +30,6 @@ extern "C" {
 #endif
 
 #endif /* STACK_H */
+
+
 
