@@ -9,6 +9,11 @@
  *
  * Created on 2016年7月5日, 上午12:31
  */
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
@@ -27,7 +32,7 @@ struct Stack
   int size_of_stack;
 };
 
-static NODE *
+NODE *
 create_node ()//create a new node and initialize this node
 {
   NODE * n = malloc (sizeof (NODE));
@@ -51,7 +56,7 @@ create_stack ()
   return s;
 }
 
-bool
+int
 is_empty (stack * s)
 {
   assert (s);
