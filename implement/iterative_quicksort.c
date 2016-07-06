@@ -26,7 +26,7 @@ quickSort (int data[], int size)
 
 //if no staic in function definition , the output is "Unexpected error."
 
-void
+static void
 iterative_quick_sort (int data[], int size)//iterative_quicksort.c:23:1: error: static declaration of ‘iterative_quick_sort’ follows non-static declaration
 {
   if (size < 1)//the array must have at least 1 data
@@ -68,7 +68,7 @@ iterative_quick_sort (int data[], int size)//iterative_quicksort.c:23:1: error: 
   delete_stack (s);
 }
 
-int
+static int
 get_mid (int data[], int start, int mid, int end)//iterative_quicksort.c:66:1: error: static declaration of ‘get_mid’ follows non-static declaration
 {
   int temp;
@@ -87,7 +87,7 @@ get_mid (int data[], int start, int mid, int end)//iterative_quicksort.c:66:1: e
   return temp;
 }
 
- void
+static void
 swap (int array[], int a, int b)//iterative_quicksort.c:85:1: error: static declaration of ‘swap’ follows non-static declaration
 {
   int temp = array[a];
