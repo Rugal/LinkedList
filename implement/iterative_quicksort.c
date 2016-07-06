@@ -12,7 +12,12 @@
 #include <stdlib.h>
 #include "sort.h"
 #include "stack.h"
-
+static void
+iterative_quick_sort (int data[], int size);
+static int
+get_mid (int data[], int start, int mid, int end);
+static void
+swap (int array[], int a, int b);
 void
 quickSort (int data[], int size)
 {
