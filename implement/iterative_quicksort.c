@@ -62,7 +62,7 @@ iterative_quick_sort (int data[], int size)//iterative_quicksort.c:23:1: error: 
   int head = 0, tail = size; // index of array
   push (s, head); //push into Stack head and tail
   push (s, tail);
-  while (!isEmpty (s))
+  while (!is_empty (s))
     {
       temp_tail = pop (s); //Get the head pointer and tail pointer of this loop
       temp_head = pop (s);
