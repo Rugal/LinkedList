@@ -58,7 +58,7 @@ iterative_quick_sort (int data[], int size)//iterative_quicksort.c:23:1: error: 
     return;
   int temp_tail, temp_head;
   int temp_left, temp_right;
-  Stack * s = createStack (); //create a new Stack
+  stack * s = create_stack (); //create a new Stack
   int head = 0, tail = size; // index of array
   push (s, head); //push into Stack head and tail
   push (s, tail);
@@ -88,7 +88,7 @@ iterative_quick_sort (int data[], int size)//iterative_quicksort.c:23:1: error: 
           push (s, temp_tail);
         }
     }
-  deleteStack (s);
+  delete_stack (s);
 }
 
 
