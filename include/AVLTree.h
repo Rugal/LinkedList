@@ -27,6 +27,11 @@ extern "C" {
    */
   void remove(AVLTree*, int data);
   
+  /*
+   * Traverse a tree, print it as top down, left to right order.
+   */
+  void traverse(AVLTree*);
+  
   
 #ifdef __cplusplus
 }
