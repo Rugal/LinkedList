@@ -18,55 +18,11 @@ static int
 get_mid (int data[], int start, int mid, int end);
 static void
 swap (int array[], int a, int b);
-void
-quickSort (int data[], int size)
-{
-  iterative_quick_sort (data, size);
-}
+
 
 //if no staic in function definition , the output is "Unexpected error."
 
-static void
-iterative_quick_sort (int data[], int size)//iterative_quicksort.c:23:1: error: static declaration of ‘iterative_quick_sort’ follows non-static declaration
-{
-  if (size < 1)//the array must have at least 1 data
-    return;
-  int temp_tail, temp_head;
-  int temp_left, temp_right;
-  stack * s = create_stack (); //create a new stack 
-  int head = 0, tail = size; // index of array
-  push (s, head); //push into stack head and tail
-  push (s, tail);
-  while (!is_empty (s))
-    {
-      temp_tail = pop (s); //Get the head pointer and tail pointer of this loop
-      temp_head = pop (s);
-      if (temp_head < temp_tail)
-        {
-          int pivot = get_mid (data, temp_head, (temp_tail + temp_head) / 2, temp_tail);
 
-          temp_left = temp_head;
-          temp_right = temp_tail;
-          while (temp_left < temp_right)
-            {
-              while (temp_left < temp_right && data[temp_right] > pivot)
-                temp_right--;
-              if (temp_left < temp_right)
-                data[temp_left++] = data[temp_right];
-              while (temp_left < temp_right && data[temp_left] < pivot)
-                temp_left++;
-              if (temp_left < temp_right)
-                data[temp_right--] = data[temp_left];
-            }
-          data[temp_left] = pivot;
-        }
-      push (s, head);
-      push (s, temp_left);
-      push (s, temp_left + 1);
-      push (s, tail);
-    }
-  delete_stack (s);
-}
 
 static int
 get_mid (int data[], int start, int mid, int end)//iterative_quicksort.c:66:1: error: static declaration of ‘get_mid’ follows non-static declaration
@@ -95,6 +51,49 @@ swap (int array[], int a, int b)//iterative_quicksort.c:85:1: error: static decl
   array[b] = temp;
 }
 
+static void
+iterative_quick_sort (int data[], int size)//iterative_quicksort.c:23:1: error: static declaration of ‘iterative_quick_sort’ follows non-static declaration
+{
+  if (size < 1)//the array must have at least 1 data
+    return;
+  int temp_tail, temp_head;
+  int temp_left, temp_right;
+  Stack * s = createStack (); //create a new Stack
+  int head = 0, tail = size; // index of array
+  push (s, head); //push into Stack head and tail
+  push (s, tail);
+  while (!isEmpty (s))
+    {
+      temp_tail = pop (s); //Get the head pointer and tail pointer of this loop
+      temp_head = pop (s);
+      if (temp_head < temp_tail)
+        {
+          int pivot = get_mid (data, temp_head, (temp_tail + temp_head) / 2, temp_tail);
+
+          temp_left = temp_head;
+          temp_right = temp_tail;
+          while (temp_left < temp_right)
+            {
+              while (temp_left < temp_right && data[--temp_right] > pivot);
+              if (temp_left < temp_right)
+                data[temp_left++] = data[temp_right];
+              while (temp_left < temp_right && data[++temp_left] < pivot);
+              if (temp_left < temp_right)
+                data[temp_right--] = data[temp_left];
+            }
+          data[temp_left] = pivot;
+          push (s, temp_head);
+          push (s, temp_left);
+          push (s, temp_left + 1);
+          push (s, temp_tail);
+        }
+    }
+  deleteStack (s);
+}
 
 
-//if no staic in function definition , the output is "Unexpected error."
+void
+quickSort (int data[], int size)
+{
+  iterative_quick_sort (data, size);
+}
