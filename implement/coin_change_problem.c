@@ -27,14 +27,15 @@ coin_change_problem (int cost, int coin[], int coin_array_size)
     {
       for (int j = 0; j < coin_array_size; j++)
         {
-          if (coin[j] <= i)
+          if (i > coin[j])
             {
-              int sub_answer = coin_used[i - coin[j]];
-              if (sub_answer != BIG_NUMBER && sub_answer + 1 < coin_used[i])
-                coin_used[i] = sub_answer + 1;
+              int current_coin_used = coin_used[i - coin[j]];
+              if (current_coin_used != BIG_NUMBER && current_coin_used + 1 < coin_used[i])//why +1?
+                coin_used[i] = current_coin_used + 1;
             }
+          else
+            coin_used[i] = 0;
         }
     }
   return coin_used[cost];
 }
-
