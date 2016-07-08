@@ -26,7 +26,7 @@ recursive_binary_search (int *array, int max, int min, int value) //O(1)?O(n)?
 }
 
 bool
-recursive (int* array, int size, int value)//if not found,it always return 4. why? 
+recursive (int* array, int size, int value)//if not found,it always return 4. why? //O(log n)
 {
   if (NULL == array || size <= 0)
     return false;
@@ -36,7 +36,7 @@ recursive (int* array, int size, int value)//if not found,it always return 4. wh
 }
 
 bool
-iterative (int* array, int size, int value)//O(n)
+iterative (int* array, int size, int value)//O(log n)
 {
   if (NULL == array || size <= 0)
     return false;
