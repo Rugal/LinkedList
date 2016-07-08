@@ -32,7 +32,7 @@ traverse (AVLtree * tree)
 
 
 
-void recursive(AVLtree * tree)
+void iterative(AVLtree * tree)
 {
   assert (tree);
   if( tree->size < 1)
