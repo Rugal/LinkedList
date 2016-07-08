@@ -25,18 +25,17 @@ add_on_head (linked_list *list)
   node * n = create_node ();
   if (TRUE == is_empty (list->head))
     {
-      list->head = n;
-      list->tail = n;
-      list->size++;
-      return list;
+      list->head = list->tail = n;
     }
-  node * current = list->head;
-  list->head = n;
-  list->head->next = current;
-  current->previous = list->head;
+    else
+    {
+      node * current = list->head;
+      list->head = n;
+      list->head->next = current;
+      current->previous = list->head; 
+    }
   list->size++;
   return list;
-
 }
 
 //linked_list*
