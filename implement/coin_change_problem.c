@@ -7,7 +7,7 @@
 /* 
  * File:   coin_change_problem.c
  * Author: HYH
- * reference :Rugal,(2016). Rugal/algorithm. Retrieved from https://github.com/Rugal/algorithm/blob/master/dp/src/main/java/ga/rugal/dp/Main.java#L181
+ * reference :Rugal,(2016.1.13). Rugal/algorithm. Retrieved from https://github.com/Rugal/algorithm/blob/master/dp/src/main/java/ga/rugal/dp/Main.java#L181
  * Created on 2016年7月5日, 上午5:36
  */
 
