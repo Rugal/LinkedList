@@ -49,3 +49,15 @@ void iterative(AVLtree * tree)
       push(s, current->right);
   }
 }
+
+
+void recursive(node * current)
+{
+  assert (current);
+  printf ("%d\n", current->data);
+  if(current->left  != NULL)
+    recursive(current->left);
+  if(current->right  != NULL)
+    recursive(current->right);
+  }
+}
