@@ -29,3 +29,23 @@ traverse (AVLtree * tree)
       push (p);
     }
 }
+
+
+
+void recursive(AVLtree * tree)
+{
+  assert (tree);
+  if( tree->size < 1)
+    return;
+  stack * s = create_stack ();
+  push(s, tree->root);
+  while(!is_empty(s))
+  {
+    node * current = pop(s);
+    printf ("%d\n", p->data);
+    if(current->left  != NULL)
+      push(s, current->left);
+    if(current->right  != NULL)
+      push(s, current->right);
+  }
+}
